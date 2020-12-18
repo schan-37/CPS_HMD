@@ -8,6 +8,17 @@
     </head>
     <body>
         <a-scene id=“scene” background=“color: #000000”>
+            <a-assets>
+    
+                <!-- 注視ボックスの形状 -->
+                <a-mixin id="cube" geometry="primitive: box"></a-mixin>
+    
+                <!-- レーザーが当たったとき、外れたときのカラー設定 -->
+                <a-mixin id="hoverColor" event-set__mouseenter="material.color: #CC435F"></a-mixin>
+                <a-mixin id="leaveColor" event-set__mouseleave="material.color: #9DE0AD"></a-mixin>
+    
+            </a-assets>
+            
             <a-camera>
                 <a-cursor>
 
