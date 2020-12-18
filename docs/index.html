@@ -8,7 +8,16 @@
     </head>
     <body>
         <a-scene id=“scene” background=“color: #000000”>
-           
+            <a-assets>
+    
+                <!-- 注視ボックスの形状 -->
+                <a-mixin id="cube" geometry="primitive: box"></a-mixin>
+    
+                <!-- レーザーが当たったとき、外れたときのカラー設定 -->
+                <a-mixin id="hoverColor" event-set__mouseenter="material.color: #CC435F"></a-mixin>
+                <a-mixin id="leaveColor" event-set__mouseleave="material.color: #9DE0AD"></a-mixin>
+    
+            </a-assets>
             <a-camera>
                 <a-cursor>
 
@@ -18,14 +27,59 @@
             </a-sky>
 
             <a-box position="-1 0.5 -3" rotation="0 45 0" color="#4CC3D9" shadow></a-box> 
-            <a-box position="-2 0.5 -3" rotation="0 45 0" color="#4CC3D9" shadow></a-box> 
-            <a-box position="-1 1 -4" rotation="0 45 0" color="#4CC3D9" shadow></a-box> 
-            <a-box position="-3 0.5 -4" rotation="0 45 0" color="#4CC3D9" shadow></a-box>
-            <a-box position="-2 0.5 -2" rotation="0 45 0" color="#4CC3D9" shadow></a-box> 
-            <a-box position="-1 1.5 -3" rotation="0 45 0" color="#4CC3D9" shadow></a-box> 
         
-        
-            
+            <!-- 1つ目の注視ボックス（チェックポイント）一回点滅　-->
+            <a-entity position="0 1 -5" id="gaze1" class="intersectable"
+                mixin="green cube hoverColor selectColor leaveColor" 
+                animation="property: visible;
+                startEvents: mouseenter;
+                from: false;
+                to: true;
+                dir: normal;
+                dur: 300;
+                loop: false">
+
+
+
+            </a-entity>
+
+            <!-- 2つ目の注視ボックス（チェックポイント）周る　-->
+            <a-entity position="5 1 -10">
+                <a-entity id="gaze2" class="intersectable" mixin="green cube hoverColor selectColor leaveColor"
+                    animation="property: rotation;
+                    from: 0 0 0;
+                    to: 0 0 360;
+                    dir: alternate;
+                    dur: 1000;
+                    loop: false;
+                    easing: easeInOutSine;
+                    startEvents: mouseenter">
+                </a-entity>
+            </a-entity>
+
+            <!-- 3つ目の注視ボックス（チェックポイント）大きさ変わる　-->
+            <a-entity position="-5 1 -7">
+                <a-entity id="gaze3" class="intersectable" mixin="green cube hoverColor selectColor leaveColor"
+                    animation="property: scale;
+                    dur: 2000;
+                    to: 1.5 1.5 1.5;
+                    dir: alternate;
+                    loop: false;
+                    startEvents: click">
+                </a-entity>
+            </a-entity>
+
+            <!--4つ目の注視ボックス（チェックポイント）大きさ変わる　-->
+            <a-entity position="-5 3 -7">
+                <a-entity id="gaze4" class="intersectable" mixin="green cube hoverColor selectColor leaveColor"
+                animation="property: object3D.position.x;
+                to: 2.0;
+                dir: alternate;
+                dur: 1000;
+                loop: false;
+                startEvents: mouseenter">
+                </a-entity>
+            </a-entity>
         </a-scene>
 
     </body>
